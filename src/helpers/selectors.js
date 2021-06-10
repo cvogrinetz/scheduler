@@ -35,7 +35,6 @@ export function getInterview(state, interview) {
         "avatar": state.interviewers[key].avatar
       }
     }
-    console.log("DAT NEW NEW", newObj)
   }
   return newObj;
 }

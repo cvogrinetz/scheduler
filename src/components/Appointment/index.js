@@ -8,11 +8,11 @@ const Appointment = (props) => {
 
   if (props.interview) {
     return (
-      <>
+      <Fragment>
         <article className='appointment'></article>
         <Header time={props.time} />
         <Show student={props.interview.student} interviewer={props.interview.interviewer} />
-      </>
+      </Fragment>
     )
   }
 
