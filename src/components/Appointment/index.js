@@ -23,14 +23,19 @@ const Appointment = (props) => {
   // console.log('APPOINTMENT PROPS', props)
   // console.log('BOOK INTERVIEW FUNCTION', props.bookInterview);
   // console.log('PROPS ID', props.id)
-  console.log('PROPS INTERVIEW', props.interview)
+  // console.log('PROPS INTERVIEW', props)
 
   const save = (name, interviewer) => {
     const interview = {
       student: name,
-      interviewer : interviewer
+      interviewer
     }
     props.bookInterview(props.id, interview)
+    transition(SHOW)
+    console.log("BOOK INTERVIEW PROPS", props.id, interview);
+    // console.log("STUENDT", interview.student)
+    // console.log("INTERVIEW", interview.interviewer);
+    ;
   }
 
 
@@ -40,10 +45,13 @@ const Appointment = (props) => {
       
       <Fragment>
         {mode === SHOW && (
+          <>
+          <Header time={props.time} />
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer}
           />
+          </>
         )}
       </Fragment>
 
@@ -54,7 +62,13 @@ const Appointment = (props) => {
     return (
       
       <Fragment>
-        {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+
+        {mode === EMPTY && 
+        <>
+        <Header time={props.time} />
+        <Empty onAdd={() => transition(CREATE)} />
+        </> 
+        }
 
         {mode === CREATE && <Form 
         interviewers={props.interviewers} 
@@ -62,24 +76,7 @@ const Appointment = (props) => {
         onSave={save}
         /> }
 
-        {mode === SHOW && (
-          <>
-          <Header time={props.time} />
-          <Empty />
-          </>
-        )}
       </Fragment>
-
-
-
-
-
-
-      // <>
-      //   <article className='appointment'></article>
-      //   <Header time={props.time} />
-      //   <Empty />
-      // </>
     )
   }
 }

@@ -13,7 +13,7 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    appointment: {},
+    appointments: {},
     interviewers: {}
   })
   
@@ -23,7 +23,7 @@ export default function Application(props) {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
-      setState(prev => ({...prev, days: all[0].data, appointment: all[1].data, interviewers: all[2].data}))
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
     })    
   }, [])
   
@@ -34,13 +34,32 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const appointmentsList = dailyAppointments.map(appointment => {
    const interview = getInterview(state, appointment.interview);
+  //  console.log("INTERVIEW STATE", state);
+  //  console.log(("APPOINTMENT INTERVIEW THINGY", appointment.interview));
+  //  console.log("INTERVIEW", interview)
   
   const dailyInterviewers = getInterviewersForDay(state, state.day);
   
 
     const bookInterview = (id, interview) => {
-      console.log(id, interview)
+      
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview }
+      };
+      console.log("APPOINTMENT", appointment);
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+      console.log("APPOINTMENTS PLURAL", appointments);
+      setState({
+        ...state,
+        appointments
+      });
+      
     } 
+    console.log("BOOKINTERVIEW FINAL STATE", state)
   
   
 
@@ -76,7 +95,7 @@ export default function Application(props) {
       <section className="schedule">
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */} 
         {appointmentsList}
-        <Appointment key="last" time={'5pm'} />
+        {/* <Appointment key="last" time='5pm' /> */}
       </section>
     </main>
   );
