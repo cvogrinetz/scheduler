@@ -16,10 +16,23 @@ const CREATE = 'Form';
 
 
 const Appointment = (props) => {
-
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
+
+  // console.log('APPOINTMENT PROPS', props)
+  // console.log('BOOK INTERVIEW FUNCTION', props.bookInterview);
+  // console.log('PROPS ID', props.id)
+  console.log('PROPS INTERVIEW', props.interview)
+
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer : interviewer
+    }
+    props.bookInterview(props.id, interview)
+  }
+
 
 
   if (props.interview) {
@@ -42,7 +55,13 @@ const Appointment = (props) => {
       
       <Fragment>
         {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-        {mode === CREATE && <Form interviewers={[]} onCancel={() => back()}/> }
+
+        {mode === CREATE && <Form 
+        interviewers={props.interviewers} 
+        onCancel={() => back()} 
+        onSave={save}
+        /> }
+
         {mode === SHOW && (
           <>
           <Header time={props.time} />
