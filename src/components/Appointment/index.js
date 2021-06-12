@@ -4,6 +4,7 @@ import Header from 'components/Appointment/Header'
 import Show from 'components/Appointment/Show'
 import Empty from 'components/Appointment/Empty'
 import Form from 'components/Appointment/Form'
+import Status from 'components/Appointment/Status'
 import { useVisualMode } from 'hooks/useVisualMode'
 
 
@@ -12,6 +13,7 @@ import { useVisualMode } from 'hooks/useVisualMode'
 const EMPTY = 'Empty';
 const SHOW = 'Show';
 const CREATE = 'Form';
+const SAVING = 'Status';
 
 
 
@@ -30,9 +32,12 @@ const Appointment = (props) => {
       student: name,
       interviewer
     }
-    props.bookInterview(props.id, interview)
-    transition(SHOW)
-    console.log("BOOK INTERVIEW PROPS", props.id, interview);
+    transition(SAVING)
+    props.bookInterview(props.id, interview).then((res) => {
+      transition(SHOW)
+    })
+
+    // console.log("BOOK INTERVIEW PROPS", props.id, interview);
     // console.log("STUENDT", interview.student)
     // console.log("INTERVIEW", interview.interviewer);
     ;
@@ -44,6 +49,7 @@ const Appointment = (props) => {
     return (
       
       <Fragment>
+        {mode === SAVING && <Status />}
         {mode === SHOW && (
           <>
           <Header time={props.time} />
@@ -62,19 +68,21 @@ const Appointment = (props) => {
     return (
       
       <Fragment>
-
+        {mode === SAVING && <Status />}
         {mode === EMPTY && 
         <>
         <Header time={props.time} />
         <Empty onAdd={() => transition(CREATE)} />
         </> 
         }
+        {mode === SAVING && <Status />}
 
         {mode === CREATE && <Form 
         interviewers={props.interviewers} 
         onCancel={() => back()} 
         onSave={save}
         /> }
+
 
       </Fragment>
     )
