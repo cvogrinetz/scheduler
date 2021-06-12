@@ -14,8 +14,8 @@ import { useVisualMode } from 'hooks/useVisualMode'
 const EMPTY = 'Empty';
 const SHOW = 'Show';
 const CREATE = 'Form';
-const SAVING = 'Status';
-const DELETE = 'Status';
+const SAVING = { ...'Status' };
+const DELETE = { ...'Status' };
 const CONFIRM = 'Confirm';
 
 
@@ -26,7 +26,7 @@ const Appointment = (props) => {
   )
 
 
-
+  //  SAVE A NEW INTERVIEW
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -38,7 +38,7 @@ const Appointment = (props) => {
     });
   }
 
-
+// DELETE AN INTERVIEW FUNCTION
   const cancel = () => {
     const interview = {
       student: null,
@@ -60,19 +60,30 @@ const Appointment = (props) => {
 
     <Fragment>
 
-      {mode === CONFIRM && <Confirm onConfirm={cancel} />}
-      {mode === SAVING && <Status />}
+      {/* STATUS LOADING  */}
+      {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETE && <Status message="Deleting" />}
+
+
+      {/* CONFIRM DELETE */}
+      {mode === CONFIRM && <Confirm
+        message="Are you sure you would like to delete?"
+        onCancel={() => back()}
+        onConfirm={cancel} />}
+
+
+      {/* SHOW WITH INTERVIEW DATA */}
       {mode === SHOW && (
         <>
           <Header time={props.time} />
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer}
-            onDelete={cancel}
-          />
+            onDelete={() => transition(CONFIRM)} />
         </>
       )}
 
+      {/* WHAT SHOWS WHEN EMPTY INTERVIEW */}
       {mode === EMPTY &&
         <>
           <Header time={props.time} />
@@ -80,11 +91,13 @@ const Appointment = (props) => {
         </>
       }
 
+      {/* SHOWS CREATE NEW INTERVIEW FORM */}
       {mode === CREATE && <Form
         interviewers={props.interviewers}
         onCancel={() => back()}
-        onSave={save}
-      />}
+        onSave={save} />
+      }
+
 
     </Fragment>
   )
