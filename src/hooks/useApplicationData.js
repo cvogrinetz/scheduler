@@ -25,13 +25,11 @@ export const useApplicationData = (props) => {
 
   const setDay = day => setState({ ...state, day });
 
+  // console.log("DAAAAY---------", state.days)  // THIS IS WHEE SPOTS IS STORED
+  // console.log("STAAAAATE------------", state)
+  console.log("INTERVIEW----------", state.interview)
 
-// console.log("DAAAAAAAY---------", day)
-// console.log("AAAAPPPPPOINTMENTS----------, appointments")
-
-
-
-// Function to SAVE an interview to local and API
+  // Function to SAVE an interview to local and API
   const bookInterview = (id, interview) => {
 
     const appointment = {
@@ -51,20 +49,27 @@ export const useApplicationData = (props) => {
       axios
         .put(`/api/appointments/${appointment.id}`, {
           ...appointment
-        }).then((response) => {
-          setState({
-            ...state,
-            appointments
-
-            
-
-
-          })
+        })
+        .then(() => {
+          setState((state) => {
+            // Used to render the available spots in each day
+            const days = state.days.map((day) => {
+              if (state.day === day.name) {
+                day.spots = day.spots - 1;
+              }
+              return day;
+            });
+            return { ...state, appointments, days };
+          });
+          return true;
         })
     )
   }
 
-// Function to DELETE an interview to local and API
+
+
+
+  // Function to DELETE an interview to local and API
   const cancelInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -74,16 +79,24 @@ export const useApplicationData = (props) => {
       ...state.appointments,
       [id]: appointment
     };
-   
+
     return (
       axios.delete(`/api/appointments/${appointment.id}`, {
         ...appointments
-      }).then((response) => {
-        setState({
-          ...state,
-          appointments
-        })
       })
+        .then(() => {
+          setState((state) => {
+            // Used to render the available spots in each day
+            const days = state.days.map((day) => {
+              if (state.day === day.name) {
+                day.spots = day.spots + 1;
+              }
+              return day;
+            });
+            return { ...state, appointments, days };
+          });
+          return true;
+        })
     )
   }
 

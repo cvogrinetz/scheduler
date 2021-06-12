@@ -30,7 +30,6 @@ export default function Application() {
     const interview = getInterview(state, appointment.interview);
     const dailyInterviewers = getInterviewersForDay(state, state.day);
 
-    console.log("INTEVIEWW--------", interview);
 
     return (
       <Appointment 
@@ -70,7 +69,7 @@ export default function Application() {
       <section className="schedule">
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
         {appointmentsList}
-        {/* <Appointment key="last" time='5pm' /> */}
+        {/* <Appointment /> */}
       </section>
     </main>
   );
