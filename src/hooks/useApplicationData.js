@@ -21,10 +21,17 @@ export const useApplicationData = (props) => {
     })
   }, [])
 
+
+
   const setDay = day => setState({ ...state, day });
 
 
+// console.log("DAAAAAAAY---------", day)
+// console.log("AAAAPPPPPOINTMENTS----------, appointments")
 
+
+
+// Function to SAVE an interview to local and API
   const bookInterview = (id, interview) => {
 
     const appointment = {
@@ -48,12 +55,16 @@ export const useApplicationData = (props) => {
           setState({
             ...state,
             appointments
+
+            
+
+
           })
         })
     )
   }
 
-
+// Function to DELETE an interview to local and API
   const cancelInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -63,11 +74,7 @@ export const useApplicationData = (props) => {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
-
+   
     return (
       axios.delete(`/api/appointments/${appointment.id}`, {
         ...appointments
@@ -81,5 +88,5 @@ export const useApplicationData = (props) => {
   }
 
 
-  return {  state, setDay, bookInterview, cancelInterview };
+  return { state, setDay, bookInterview, cancelInterview };
 }

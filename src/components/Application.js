@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 import DayList from "components/DayList"
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "../helpers/selectors"
@@ -9,7 +8,7 @@ import { useApplicationData } from "hooks/useApplicationData";
 
 
 
-export default function Application(props) {
+export default function Application() {
 
  
 // Object to handle state, imported from useApplicationData
@@ -31,6 +30,7 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview);
     const dailyInterviewers = getInterviewersForDay(state, state.day);
 
+    console.log("INTEVIEWW--------", interview);
 
     return (
       <Appointment 

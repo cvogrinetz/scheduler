@@ -11,7 +11,7 @@ import { useVisualMode } from 'hooks/useVisualMode'
 
 
 
-
+// Set modes to be able to transition to
 const EMPTY = 'Empty';
 const SHOW = 'Show';
 const CREATE = 'Form';
