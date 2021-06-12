@@ -68,8 +68,16 @@ const Appointment = (props) => {
       {/* STATUS LOADING  */}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETE && <Status message="Deleting" />}
-      {mode === ERROR_SAVE && <Error message="Could not save interview, Try Again!" onClose={() => transition(CREATE, true)} />}
-      {mode === ERROR_DELETE && <Error message="Could not delete interview, Try Again!" onClose={() => transition(SHOW, true)} />}
+
+      {/* ERROR MESSAGE WHEN FAILED SAVE */}
+      {mode === ERROR_SAVE && <Error 
+      message="Could not save interview, Try Again!" 
+      onClose={() => transition(CREATE, true)} />}
+
+        {/* ERROR MESSAGE ON FAILED DELETE */}
+      {mode === ERROR_DELETE && <Error 
+      message="Could not delete interview, Try Again!" 
+      onClose={() => transition(SHOW, true)} />}
       
 
       {/* SHOW FORM WHEN CLICK EDIT */}
@@ -88,7 +96,7 @@ const Appointment = (props) => {
       {/* CONFIRM DELETE */}
       {mode === CONFIRM && <Confirm
         message="Are you sure you would like to delete?"
-        onCancel={() => back()}
+        onCancel={() => transition(SHOW)}
         onConfirm={cancel} />}
 
 
