@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Show = (props) => {
-
+// console.log("THIS IS THE SHOW BABY", props.interviewer)
   
   return (
     <main className="appointment__card appointment__card--show">

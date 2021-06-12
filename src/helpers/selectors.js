@@ -31,26 +31,63 @@ export function getInterviewersForDay(state, day) {
 }
 
 
-export function getInterview(state, interview) {
-  let newObj = {};
 
-  if (!interview) {
-    return null
-  }
 
-  for (const key in state.interviewers) {
 
-    newObj = {
-      "student": interview.student,
-      "interviewer": {
-        "id": state.interviewers[key].id,
-        "name": state.interviewers[key].name,
-        "avatar": state.interviewers[key].avatar
+
+export const getInterview = (state, interview) => {
+  if (interview && interview.interviewer && interview.student) {
+    for (let app in state.appointments) {
+      if (state.appointments[app].interview) {
+        if (
+          state.appointments[app].interview.student === interview.student &&
+          state.appointments[app].interview.interviewer ===
+            interview.interviewer
+        ) {
+          const intObject = {
+            student: interview.student,
+            interviewer: {
+              id: interview.interviewer,
+              name: state.interviewers[interview.interviewer].name,
+              avatar: state.interviewers[interview.interviewer].avatar,
+            },
+          };
+
+          return intObject;
+        }
       }
     }
   }
-  return newObj;
-}
+  return null;
+};
+
+
+
+
+
+
+
+// export function getInterview(state, interview) {
+//   let newObj = {};
+
+//   if (!interview) {
+//     return null
+//   }
+
+//   for (const key in state.interviewers) {
+
+//     newObj = {
+//       "student": interview.student,
+//       "interviewer": {
+//         "id": state.interviewers[key].id,
+//         "name": state.interviewers[key].name,
+//         "avatar": state.interviewers[key].avatar
+//       }
+//     }
+//   }
+//   console.log('STATE STATE INTEVIFIF', state.interviewers);
+//   return newObj;
+// }
 
 
 

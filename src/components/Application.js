@@ -29,70 +29,73 @@ export default function Application(props) {
 
 
 
-  const setDay = day => setState({ ...state, day });
+  // Function to save a booked intwerview to local and API
+  const bookInterview = (id, interview) => {
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const appointmentsList = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview);
-    const dailyInterviewers = getInterviewersForDay(state, state.day);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
 
-
-    const bookInterview = (id, interview) => {
-
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview }
-      };
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-      setState({
-        ...state,
-        appointments
-      });
-
-      return (
-        axios
-          .put(`/api/appointments/${appointment.id}`, {
-            ...appointment
-          }).then((response) => {
-            setState({
-              ...state,
-              appointments
-            })
-          }).catch((error) => {
-            console.log(error)
-          })
-      )
-    }
-
-    const cancelInterview = (id, interview) => {
-      const appointment = {
-        ...state.appointments[id], 
-        interview: { ...interview }
-      };
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-      setState({
-        ...state,
-        appointments
-      });
-
-      return (
-        axios.delete(`/api/appointments/${appointment.id}`, {
-          ...appointments
+    return (
+      axios
+        .put(`/api/appointments/${appointment.id}`, {
+          ...appointment
         }).then((response) => {
           setState({
             ...state,
             appointments
           })
-        }) 
-      )
-    }
+        })
+    )
+  }
 
+  // Function to delete an interview from local and API
+  const cancelInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
+
+    return (
+      axios.delete(`/api/appointments/${appointment.id}`, {
+        ...appointments
+      }).then((response) => {
+        setState({
+          ...state,
+          appointments
+        })
+      })
+    )
+  }
+
+
+
+  const setDay = day => setState({ ...state, day });
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
+
+  // Render the appointment to page AND pass props through Appointment
+  const appointmentsList = dailyAppointments.map(appointment => {
+    // Grab data from api request and turn it into usable object
+    const interview = getInterview(state, appointment.interview);
+    const dailyInterviewers = getInterviewersForDay(state, state.day);
 
 
     return (
