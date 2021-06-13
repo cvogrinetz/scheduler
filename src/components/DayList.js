@@ -1,14 +1,10 @@
-import React from 'react';
-// import reactDom from 'react-dom';
-import DayListItem from './DayListItem';
-// const classNames = require('classnames');
+import React from "react";
+import DayListItem from "./DayListItem";
 
-
+//  SIDE BAR TO DISPLAY NAME OF DAY AND SPOTS REMAINING
 const DayList = (props) => {
-  const days = props.days.map(day => {
-    
+  const days = props.days.map((day) => {
     return (
-      
       <ul key={day.id}>
         <DayListItem
           name={day.name}
@@ -17,12 +13,9 @@ const DayList = (props) => {
           setDay={props.setDay}
         />
       </ul>
-    )
-  })
+    );
+  });
   return days;
-  
-}
+};
 
-    
-
-export default DayList
+export default DayList;

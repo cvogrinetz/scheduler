@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 
+// DISPLAYS AN ERROR PROMT IF ANYTHING GOES WRONG WHILE MAKING AN APPOINTMENT
 const Error = (props) => {
   return (
     <main className="appointment__card appointment__card--error">
@@ -14,7 +15,7 @@ const Error = (props) => {
         onClick={props.onClose}
       />
     </main>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;

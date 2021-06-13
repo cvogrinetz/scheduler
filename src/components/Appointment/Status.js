@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 
+// DISPLAY A STATUS LOADING FOR EITHER DELETE OR SAVE
 const Status = (props) => {
   return (
     <main className="appointment__card appointment__card--status">
@@ -10,7 +11,7 @@ const Status = (props) => {
       />
       <h1 className="text--semi-bold">{props.message}</h1>
     </main>
-  )
-}
+  );
+};
 
-export default Status
+export default Status;

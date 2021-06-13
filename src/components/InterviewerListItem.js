@@ -1,16 +1,12 @@
-import React from 'react'
+import React from "react";
 import "components/InterviewerListItem.scss";
-const classNames = require('classnames');
+const classNames = require("classnames");
 
+// DISPLAY SINGLE INTERVIEWER WHILE Unselected, Selected, Clickable
 const InterviewerListItem = (props) => {
-
-
-  const InterviewerClass = classNames('interviewers__item',
-    {
-      "interviewers__item--selected": props.selected,
-    }
-  )
-
+  const InterviewerClass = classNames("interviewers__item", {
+    "interviewers__item--selected": props.selected,
+  });
 
   return (
     <li className={InterviewerClass} onClick={props.setInterviewer}>
@@ -21,7 +17,7 @@ const InterviewerListItem = (props) => {
       />
       {props.selected && props.name}
     </li>
-  )
-}
+  );
+};
 
-export default InterviewerListItem
+export default InterviewerListItem;

@@ -1,16 +1,10 @@
-import React from 'react';
+import React from "react";
 import "components/InterviewerList.scss";
-import InterviewerListItem from './InterviewerListItem';
+import InterviewerListItem from "./InterviewerListItem";
 
-
-
-
-
-
+// DISPLAY LIST OF INTERVIEWERS
 const InterviewerList = (props) => {
-
-  const interviewers = props.interviewers.map(interviewer => {
-
+  const interviewers = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem
         key={interviewer.id}
@@ -19,19 +13,16 @@ const InterviewerList = (props) => {
         selected={interviewer.id === props.value}
         setInterviewer={() => props.setInterviewer(interviewer.id)}
       />
-    )
-  })
+    );
+  });
 
   return (
-    <section className='interviewers'>
-      <h4 className='interviewers__header text--light'>Interviewer</h4>
+    <section className="interviewers">
+      <h4 className="interviewers__header text--light">Interviewer</h4>
 
-      <ul className='interviewers__list'>
-        {interviewers}
-      </ul>
+      <ul className="interviewers__list">{interviewers}</ul>
     </section>
-  )
+  );
+};
 
-}
-
-export default InterviewerList
+export default InterviewerList;
