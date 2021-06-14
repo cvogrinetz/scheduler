@@ -21,10 +21,15 @@ const ERROR_SAVE = { ..."Error" };
 const ERROR_DELETE = { ..."Error" };
 
 // APPOINTMENT COMPONENT}
-const Appointment = (props) => {
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  );
+const Appointment = ({
+  interview,
+  interviewers,
+  id,
+  time,
+  bookInterview,
+  cancelInterview,
+}) => {
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   //  SAVE A NEW INTERVIEW
   const save = (name, interviewer) => {
@@ -33,8 +38,8 @@ const Appointment = (props) => {
       interviewer,
     };
     transition(SAVING, true);
-    props
-      .bookInterview(props.id, interview)
+
+    bookInterview(id, interview)
       .then((res) => {
         transition(SHOW);
       })
@@ -50,8 +55,8 @@ const Appointment = (props) => {
       interviewer: null,
     };
     transition(DELETE, true);
-    props
-      .cancelInterview(props.id, interview)
+
+    cancelInterview(id, interview)
       .then((res) => {
         transition(EMPTY);
       })
@@ -85,9 +90,9 @@ const Appointment = (props) => {
       {/* SHOW FORM WHEN CLICK EDIT */}
       {mode === EDIT && (
         <Form
-          name={props.interview.student}
-          interviewer={props.interview.interviewer.id}
-          interviewers={props.interviewers}
+          name={interview.student}
+          interviewer={interview.interviewer.id}
+          interviewers={interviewers}
           onCancel={() => back()}
           onSave={save}
         />
@@ -105,10 +110,10 @@ const Appointment = (props) => {
       {/* SHOW WITH INTERVIEW DATA */}
       {mode === SHOW && (
         <>
-          <Header time={props.time} />
+          <Header time={time} />
           <Show
-            student={props.interview.student}
-            interviewer={props.interview.interviewer}
+            student={interview.student}
+            interviewer={interview.interviewer}
             onDelete={() => transition(CONFIRM, true)}
             onEdit={() => transition(EDIT)}
           />
@@ -118,7 +123,7 @@ const Appointment = (props) => {
       {/* WHAT SHOWS WHEN EMPTY INTERVIEW */}
       {mode === EMPTY && (
         <>
-          <Header time={props.time} />
+          <Header time={time} />
           <Empty onAdd={() => transition(CREATE)} />
         </>
       )}
@@ -126,7 +131,7 @@ const Appointment = (props) => {
       {/* SHOWS CREATE NEW INTERVIEW FORM */}
       {mode === CREATE && (
         <Form
-          interviewers={props.interviewers}
+          interviewers={interviewers}
           onCancel={() => back()}
           onSave={save}
         />

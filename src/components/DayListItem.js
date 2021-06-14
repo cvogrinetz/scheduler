@@ -3,9 +3,7 @@ import "components/DayListItem.scss";
 const classNames = require("classnames");
 
 // DISPLAY SINGLE DAY SLOT WHILE Unselected, Selected, Full, Clickable
-export default function DayListItem(props) {
-  const { name, spots, selected, setDay } = props;
-
+export default function DayListItem({ name, spots, selected, setDay }) {
   const formatSpots = () => {
     if (spots === 0) {
       return <h3>no spots remaining</h3>;
