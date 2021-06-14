@@ -10,6 +10,7 @@ export const useApplicationData = () => {
     interviewers: {},
   });
 
+  // Axios Call to external API
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -27,8 +28,6 @@ export const useApplicationData = () => {
 
   const setDay = (day) => setState({ ...state, day });
 
-  console.log("INTERVIEW----------", state.interview);
-
   // Function to SAVE an interview to local and API
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -39,10 +38,11 @@ export const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    setState({
-      ...state,
-      appointments,
-    });
+    // probably dont need....keeping for now
+    // setState({
+    //   ...state,
+    //   appointments,
+    // });
 
     return axios
       .put(`/api/appointments/${appointment.id}`, {
@@ -55,8 +55,10 @@ export const useApplicationData = () => {
             if (state.day === day.name) {
               day.spots = day.spots - 1;
             }
+            // return the day object with the updayed spot
             return day;
           });
+          // return the state object with new appointment and days
           return { ...state, appointments, days };
         });
         return true;
@@ -85,8 +87,10 @@ export const useApplicationData = () => {
             if (state.day === day.name) {
               day.spots = day.spots + 1;
             }
+            // return the day object with updated spots
             return day;
           });
+          //  return the new state object with deleted appointments and days
           return { ...state, appointments, days };
         });
         return true;

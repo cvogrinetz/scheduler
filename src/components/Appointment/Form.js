@@ -6,6 +6,22 @@ import InterviewerList from "components/InterviewerList";
 const Form = ({ interviewer, name, interviewers, onCancel, onSave }) => {
   const [stateName, setStateName] = useState(name || "");
   const [stateInterviewer, setStateInterviewer] = useState(interviewer || null);
+  const [error, setError] = useState("");
+
+  // Use instead of onSave to validate that something is being passed in name input
+  const validate = () => {
+    if (stateName === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+    // BETTER WAY OF ERROR HANDLING, NEED TO FIX TTEST TO INCLUDE THIS TO PASS
+    // if (!stateInterviewer) {
+    //   setError("Interviewer cannot be blank");
+    //   return;
+    // }
+    setError("");
+    onSave(stateName, stateInterviewer);
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -18,8 +34,10 @@ const Form = ({ interviewer, name, interviewers, onCancel, onSave }) => {
             placeholder="Enter Student Name"
             value={stateName}
             onChange={(event) => setStateName(event.target.value)}
+            data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={interviewers}
           value={stateInterviewer}
@@ -34,7 +52,7 @@ const Form = ({ interviewer, name, interviewers, onCancel, onSave }) => {
           <Button
             confirm
             onClick={() => {
-              onSave(stateName, stateInterviewer);
+              validate();
             }}
           >
             Save

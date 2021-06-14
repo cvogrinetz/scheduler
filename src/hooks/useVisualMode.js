@@ -7,10 +7,10 @@ export const useVisualMode = (initial) => {
   const transition = (newMode, replace = false) => {
     setMode(newMode);
     if (replace) {
-      console.log("replace");
+      // console.log("replace");
     } else {
       setHistory((prev) => [...prev, newMode]);
-      console.log(history);
+      // console.log(history);
     }
   };
 

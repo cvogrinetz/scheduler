@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
 import "components/Appointment/styles.scss";
+import React, { Fragment } from "react";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
@@ -43,7 +43,7 @@ const Appointment = ({
       .then((res) => {
         transition(SHOW);
       })
-      .catch(() => {
+      .catch((event) => {
         transition(ERROR_SAVE, true);
       });
   };
