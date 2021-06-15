@@ -16,15 +16,17 @@ export default function DayListItem({ name, spots, selected, setDay }) {
     }
   };
 
-  const DayClass = classNames("day-list__item", {
+  const dayClass = classNames("day-list__item", {
     "day-list__item--selected": selected,
     "day-list__item--full": spots === 0,
   });
 
   return (
-    <li className={DayClass} onClick={() => setDay(name)}>
-      <h2>{name}</h2>
-      {formatSpots()}
-    </li>
+    <>
+      <li className={dayClass} data-testid="day" onClick={() => setDay(name)}>
+        <h2>{name}</h2>
+        {formatSpots()}
+      </li>
+    </>
   );
 }

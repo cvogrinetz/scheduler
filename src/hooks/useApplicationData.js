@@ -29,7 +29,7 @@ export const useApplicationData = () => {
   const setDay = (day) => setState({ ...state, day });
 
   // Function to SAVE an interview to local and API
-  const bookInterview = (id, interview) => {
+  const bookInterview = (id, interview, edit) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -53,7 +53,9 @@ export const useApplicationData = () => {
           // Used to render the available spots in each day
           const days = state.days.map((day) => {
             if (state.day === day.name) {
-              day.spots = day.spots - 1;
+              if (!edit) {
+                day.spots = day.spots - 1;
+              }
             }
             // return the day object with the updayed spot
             return day;
@@ -66,7 +68,7 @@ export const useApplicationData = () => {
   };
 
   // Function to DELETE an interview to local and API
-  const cancelInterview = (id, interview) => {
+  const cancelInterview = (id, interview, edit) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },

@@ -50,6 +50,7 @@ const Form = ({ interviewer, name, interviewers, onCancel, onSave }) => {
             Cancel
           </Button>
           <Button
+            alt="Save"
             confirm
             onClick={() => {
               validate();
