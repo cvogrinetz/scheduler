@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import Application from "components/Application";
 import {
   render,
   cleanup,
@@ -13,8 +13,6 @@ import {
   getByPlaceholderText,
   queryByText,
 } from "@testing-library/react";
-
-import Application from "components/Application";
 
 describe("Application", () => {
   afterEach(cleanup);
