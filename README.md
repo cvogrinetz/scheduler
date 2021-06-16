@@ -17,10 +17,10 @@ The client application communicates with an API server over HTTP, using the JSON
 
 ## Screenshots
 
-!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/confirmDelete.png)
-!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/BasicShowPage.png)
-!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/emptyForm.png)
 !["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/filledForm.png)
+!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/BasicShowPage.png)
+!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/confirmDelete.png)
+!["Screenshot of desktop sized screen"](https://github.com/cvogrinetz/scheduler/blob/master/public/images/emptyForm.png)
 
 ## Setup
 
