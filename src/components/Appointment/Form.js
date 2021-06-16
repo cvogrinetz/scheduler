@@ -14,11 +14,11 @@ const Form = ({ interviewer, name, interviewers, onCancel, onSave }) => {
       setError("Student name cannot be blank");
       return;
     }
-    // BETTER WAY OF ERROR HANDLING, NEED TO FIX TTEST TO INCLUDE THIS TO PASS
-    // if (!stateInterviewer) {
-    //   setError("Interviewer cannot be blank");
-    //   return;
-    // }
+    // BETTER WAY OF ERROR HANDLING, NEED TO FIX TEST TO INCLUDE THIS TO PASS
+    if (!stateInterviewer) {
+      setError("Must choose an interviewer");
+      return;
+    }
     setError("");
     onSave(stateName, stateInterviewer);
   };

@@ -9,19 +9,18 @@ import {
 import "components/Application.scss";
 import { useApplicationData } from "hooks/useApplicationData";
 
-export default function Application() {
-  // Object to handle state, imported from useApplicationData
+const Application = () => {
+  // USE CUSTOM HOOK TO IMPORT STATE AND HELPER FUNCTIONS FROM SELECTORS
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  // Render the appointment to page AND pass props through Appointment
   const appointmentsList = dailyAppointments.map((appointment) => {
-    // Grab data from api request and turn it into usable object
+    // GRAB DATA FROM API REQUEST AND TURN IT INTO USABLE OBJECT
     const interview = getInterview(state, appointment.interview);
     const dailyInterviewers = getInterviewersForDay(state, state.day);
-    // Send out props to other components
+    // RENDER THE APPOINTMENT TO PAGE AND SEND OUT PROPS TO OTHER COMPONENTS
     return (
       <Appointment
         key={appointment.id}
@@ -34,7 +33,7 @@ export default function Application() {
     );
   });
 
-  // layout for the page with sidebar info and whole appointment schedule
+  // LAYOUT FOR THE PAGE WITH SIDEBAR INFO AND WHOLE APPOINTMENT SCHEDULE
   return (
     <main className="layout">
       <section className="sidebar">
@@ -56,4 +55,6 @@ export default function Application() {
       <section className="schedule">{appointmentsList}</section>
     </main>
   );
-}
+};
+
+export default Application;

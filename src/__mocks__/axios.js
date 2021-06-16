@@ -53,8 +53,8 @@ const fixtures = {
   },
 };
 
+// Fake Axious requests for Jest tests
 export default {
-  // defaults: { baseURL: "" }
   get: jest.fn((url) => {
     if (url === "/api/days") {
       return Promise.resolve({

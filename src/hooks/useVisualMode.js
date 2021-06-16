@@ -4,16 +4,16 @@ import { useState } from "react";
 export const useVisualMode = (initial) => {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
+
+  // TRAVERSE THROUGH THE STATE STACK
   const transition = (newMode, replace = false) => {
     setMode(newMode);
-    if (replace) {
-      // console.log("replace");
-    } else {
+    if (!replace) {
       setHistory((prev) => [...prev, newMode]);
-      // console.log(history);
     }
   };
 
+  // GO BACK TO PREVIOUS STATE STACK
   const back = () => {
     if (history.length > 1) {
       setHistory((prev) => [...prev.slice(0, -1)]);

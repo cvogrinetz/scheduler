@@ -3,6 +3,7 @@ import axios from "axios";
 
 // COLLECTION OF FUNCTIONS TO HANDLE STATE IN APPLICATION
 export const useApplicationData = () => {
+  // SET THE DEFAULT STATE
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -10,7 +11,7 @@ export const useApplicationData = () => {
     interviewers: {},
   });
 
-  // Axios Call to external API
+  // AXIOS CALL TO EXTERNAL API THEN SETS THAT INFORMATION IN THE STATE OBJECT
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -28,7 +29,7 @@ export const useApplicationData = () => {
 
   const setDay = (day) => setState({ ...state, day });
 
-  // Function to SAVE an interview to local and API
+  // SAVE AN INTERVIEW TO LOCAL AND API
   const bookInterview = (id, interview, edit) => {
     const appointment = {
       ...state.appointments[id],
@@ -38,11 +39,6 @@ export const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    // probably dont need....keeping for now
-    // setState({
-    //   ...state,
-    //   appointments,
-    // });
 
     return axios
       .put(`/api/appointments/${appointment.id}`, {
@@ -50,24 +46,23 @@ export const useApplicationData = () => {
       })
       .then(() => {
         setState((state) => {
-          // Used to render the available spots in each day
+          // USED TO SET THE AVAILABLE SPOT IN EACH DAY
           const days = state.days.map((day) => {
             if (state.day === day.name) {
               if (!edit) {
                 day.spots = day.spots - 1;
               }
             }
-            // return the day object with the updayed spot
             return day;
           });
-          // return the state object with new appointment and days
+          // RETURN THE STATE OBJECT WITH NEW APPOINTMENTS AND UPDATED DAY
           return { ...state, appointments, days };
         });
         return true;
       });
   };
 
-  // Function to DELETE an interview to local and API
+  // DELETE AN INTERVIEW FROM LOCAL AND API
   const cancelInterview = (id, interview, edit) => {
     const appointment = {
       ...state.appointments[id],
@@ -84,15 +79,14 @@ export const useApplicationData = () => {
       })
       .then(() => {
         setState((state) => {
-          // Used to render the available spots in each day in the sidebar
+          // USED TO SET THE AVAILABLE SPOT IN EACH DAY
           const days = state.days.map((day) => {
             if (state.day === day.name) {
               day.spots = day.spots + 1;
             }
-            // return the day object with updated spots
             return day;
           });
-          //  return the new state object with deleted appointments and days
+          //  RETURN THE STATE OBJECT WITH DELETED APPOINTMENTS AND UPDATED DAY
           return { ...state, appointments, days };
         });
         return true;
