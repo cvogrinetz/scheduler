@@ -28,6 +28,16 @@ Install dependencies with `npm install`.
 
 ## Running Webpack Development Server
 
+Make sure terminal is in scheduler root folder
+
+```sh
+npm start
+```
+
+## Running API Server
+
+Make sure terminal is in scheduler-api folder
+
 ```sh
 npm start
 ```
