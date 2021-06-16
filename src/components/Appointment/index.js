@@ -101,6 +101,7 @@ const Appointment = ({
         {/* SHOWS CREATE NEW INTERVIEW FORM */}
         {mode === CREATE && (
           <>
+            <Header time={time} />
             <Form
               interviewers={interviewers}
               onCancel={() => back()}
@@ -113,6 +114,7 @@ const Appointment = ({
         {/* SHOW FORM WHEN CLICK EDIT */}
         {mode === EDIT && (
           <>
+            <Header time={time} />
             <article className="appointments form" data-testid="appointments">
               <Form
                 name={interview.student}
@@ -137,32 +139,51 @@ const Appointment = ({
 
         {/* CONFIRM DELETE */}
         {mode === CONFIRM && (
-          <Confirm
-            message="Are you sure you would like to delete?"
-            onCancel={() => transition(SHOW)}
-            onConfirm={cancel}
-          />
+          <>
+            <Header time={time} />
+            <Confirm
+              message="Are you sure you would like to delete?"
+              onCancel={() => transition(SHOW)}
+              onConfirm={cancel}
+            />
+          </>
         )}
 
         {/* ERROR MESSAGE WHEN FAILED SAVE */}
         {mode === ERROR_SAVE && (
-          <Error
-            message="Could not save interview, Try Again!"
-            onClose={() => transition(CREATE, true)}
-          />
+          <>
+            <Header time={time} />
+            <Error
+              message="Could not save interview, Try Again!"
+              onClose={() => transition(CREATE, true)}
+            />
+          </>
         )}
 
         {/* ERROR MESSAGE ON FAILED DELETE */}
         {mode === ERROR_DELETE && (
-          <Error
-            message="Could not delete interview, Try Again!"
-            onClose={() => transition(SHOW, true)}
-          />
+          <>
+            <Header time={time} />
+            <Error
+              message="Could not delete interview, Try Again!"
+              onClose={() => transition(SHOW, true)}
+            />
+          </>
         )}
 
         {/* STATUS LOADING  */}
-        {mode === SAVING && <Status message="Saving" />}
-        {mode === DELETE && <Status message="Deleting" />}
+        {mode === SAVING && (
+          <>
+            <Header time={time} />
+            <Status message="Saving" />
+          </>
+        )}
+        {mode === DELETE && (
+          <>
+            <Header time={time} />
+            <Status message="Deleting" />
+          </>
+        )}
       </article>
     </Fragment>
   );
