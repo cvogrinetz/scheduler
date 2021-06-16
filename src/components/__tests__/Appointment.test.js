@@ -1,6 +1,6 @@
 import React from "react";
 import Appointment from "components/Appointment";
-import { render, cleanup, getAllByTestId } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 
 afterEach(cleanup);
 
